@@ -52,7 +52,7 @@ export default function Home() {
             <span className="text-text-secondary">whoami</span>
           </p>
           <p className="text-text-primary leading-relaxed">
-            Full-stack developer who builds things for the web.
+            Professional Debugger
           </p>
         </div>
       </section>

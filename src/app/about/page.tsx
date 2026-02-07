@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { TerminalWindow } from "@/components/TerminalWindow";
 import { BlinkingCursor } from "@/components/BlinkingCursor";
 import { CLITypewriter } from "@/components/CLITypewriter";
@@ -23,16 +24,25 @@ export default function AboutPage() {
             </p>
           </div>
           <TerminalWindow title="whoami">
-            <div className="space-y-3 text-sm">
-              <p>
-                <span className="text-accent-cyan font-semibold">Dylan Cabahug-Almonte</span>
-              </p>
-              <p className="text-text-secondary leading-relaxed">
-                Software engineer and computer engineering student at Carnegie Mellon University.
-                Passionate about building high-quality software, from full-stack web applications
-                to systems-level tools. I enjoy working at the intersection of software and hardware,
-                and I&apos;m always looking for new challenges to tackle.
-              </p>
+            <div className="flex gap-5 items-start">
+              <Image
+                src="/images/pfp.png"
+                alt="Profile picture"
+                width={96}
+                height={96}
+                className="rounded-lg border-2 border-border shadow-lg shadow-accent-cyan/10 shrink-0"
+              />
+              <div className="space-y-3 text-sm">
+                <p>
+                  <span className="text-accent-cyan font-semibold">Dylan Cabahug-Almonte</span>
+                </p>
+                <p className="text-text-secondary leading-relaxed">
+                  Software engineer and computer engineering student at Carnegie Mellon University.
+                  Passionate about building high-quality software, from full-stack web applications
+                  to systems-level tools. I enjoy working at the intersection of software and hardware,
+                  and I&apos;m always looking for new challenges to tackle.
+                </p>
+              </div>
             </div>
           </TerminalWindow>
         </section>

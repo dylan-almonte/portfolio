@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         href="/projects"
         className="text-sm text-text-muted hover:text-accent-cyan transition-colors"
       >
-        <span className="text-text-muted">$</span> cd ../projects/
+        <span className="text-text-muted">$</span> cd ../projects/{slug}
       </Link>
 
       <TerminalWindow title={`${slug}.md`}>

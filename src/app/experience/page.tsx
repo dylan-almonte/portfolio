@@ -1,98 +1,66 @@
-"use client";
-
+import Link from "next/link";
+import { getAllExperiences } from "@/lib/markdown";
 import { TerminalWindow } from "@/components/TerminalWindow";
 import { BlinkingCursor } from "@/components/BlinkingCursor";
-import { CLITypewriter } from "@/components/CLITypewriter";
 
-const experiences = [
-  {
-    company: "Capital One",
-    role: "Software Engineer Intern, EPTech",
-    location: "McLean, VA",
-    date: "June 2025 — August 2025",
-    bullets: [
-      "Developed internal tooling and platform features for enterprise productivity engineering",
-      "Built full-stack applications using modern web technologies and cloud services",
-      "Collaborated with cross-functional teams to deliver high-impact features on tight timelines",
-    ],
-  },
-  {
-    company: "Ansys Inc.",
-    role: "Software Development Engineer Intern, Mechanical Team",
-    location: "Canonsburg, PA",
-    date: "January 2025 — April 2025",
-    bullets: [
-      "Contributed to the development of simulation software on the Mechanical team",
-      "Implemented features and bug fixes in a large-scale C++ and Python codebase",
-      "Worked within Agile sprints to ship production-quality code for engineering simulation tools",
-    ],
-  },
-];
-
-const skills = {
-  Languages: ["Python", "TypeScript", "JavaScript", "C", "C++", "Java", "SQL", "HTML/CSS"],
-  Frameworks: ["React", "Next.js", "Node.js", "Flask", "Express"],
-  Tools: ["Git", "Docker", "AWS", "Linux", "PostgreSQL", "MongoDB"],
+export const metadata = {
+  title: "experience // dylan.dev",
+  description: "Work experience and internships",
 };
 
 export default function ExperiencePage() {
+  const experiences = getAllExperiences();
+
   return (
-    <div className="space-y-8">
-      <CLITypewriter>
-        <h1 className="text-xl">
-          <span className="text-text-muted">$</span>{" "}
-          <span className="text-text-secondary">cat ./experience</span>
-          <BlinkingCursor />
-        </h1>
+    <div className="space-y-6">
+      <h1 className="text-xl animate-fade-in-up">
+        <span className="text-text-muted">$</span>{" "}
+        <span className="text-text-secondary">ls ./experience/</span>
+        <BlinkingCursor />
+      </h1>
 
-        {/* Work Experience */}
-        <section className="space-y-4">
-          <h2 className="text-sm text-accent-purple">
-            <span className="text-text-muted"># </span>Work Experience
-          </h2>
-          {experiences.map((exp) => (
-            <TerminalWindow key={exp.company} title={`${exp.company.toLowerCase().replace(/\s+/g, "-")}.log`}>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="text-accent-cyan font-semibold">{exp.company}</h3>
-                  <span className="text-text-muted text-xs whitespace-nowrap">{exp.date}</span>
-                </div>
-                <p className="text-text-secondary">{exp.role}</p>
-                <p className="text-text-muted text-xs">{exp.location}</p>
-                <ul className="space-y-1 mt-2">
-                  {exp.bullets.map((bullet, i) => (
-                    <li key={i} className="text-text-primary flex gap-2">
-                      <span className="text-terminal-green shrink-0">→</span>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </TerminalWindow>
-          ))}
-        </section>
-
-        {/* Skills */}
-        <section className="space-y-3">
-          <div className="text-sm">
-            <p>
-              <span className="text-text-muted">$</span>{" "}
-              <span className="text-text-secondary">env | grep SKILLS</span>
-            </p>
-          </div>
-          <TerminalWindow title="env">
-            <div className="space-y-2 text-sm font-mono">
-              {Object.entries(skills).map(([category, items]) => (
-                <p key={category}>
-                  <span className="text-accent-amber">{category.toUpperCase()}</span>
-                  <span className="text-text-muted">=</span>
-                  <span className="text-text-primary">{items.join(", ")}</span>
-                </p>
-              ))}
+      {experiences.length === 0 ? (
+        <p className="text-text-muted text-sm animate-fade-in-up delay-2">
+          No experience entries found. Check back later.
+        </p>
+      ) : (
+        <div className="space-y-4">
+          {experiences.map((exp, i) => (
+            <div
+              key={exp.slug}
+              className="animate-fade-in-up"
+              style={{ animationDelay: `${(i + 1) * 0.1}s` }}
+            >
+              <TerminalWindow title={`${exp.slug}.md`}>
+                <Link href={`/experience/${exp.slug}`} className="block group">
+                  <div className="flex items-baseline justify-between gap-4 mb-1">
+                    <h2 className="text-accent-cyan group-hover:text-accent-blue transition-colors">
+                      {exp.company}
+                    </h2>
+                    <span className="text-xs text-text-muted whitespace-nowrap">
+                      {exp.location}
+                    </span>
+                  </div>
+                  <p className="text-sm text-text-secondary">{exp.role}</p>
+                  <p className="text-xs text-text-muted mt-1">{exp.description}</p>
+                  {exp.tags && (
+                    <div className="flex gap-2 mt-2">
+                      {exp.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs border border-border px-2 py-0.5 text-accent-purple rounded"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </Link>
+              </TerminalWindow>
             </div>
-          </TerminalWindow>
-        </section>
-      </CLITypewriter>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -23,3 +23,18 @@ export interface Project extends ProjectFrontmatter {
   slug: string;
   content: string;
 }
+
+export interface ExperienceFrontmatter {
+  title: string;
+  company: string;
+  role: string;
+  location: string;
+  date: string;
+  description: string;
+  tags?: string[];
+}
+
+export interface Experience extends ExperienceFrontmatter {
+  slug: string;
+  content: string;
+}

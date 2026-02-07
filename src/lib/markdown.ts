@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import type { Post, PostFrontmatter, Project, ProjectFrontmatter } from "./types";
+import type { Post, PostFrontmatter, Project, ProjectFrontmatter, Experience, ExperienceFrontmatter } from "./types";
 
 const contentDir = path.join(process.cwd(), "content");
 
@@ -63,5 +63,29 @@ export function getProjectBySlug(slug: string): Project | undefined {
   if (!fs.existsSync(filePath)) return undefined;
 
   const { frontmatter, content } = parseFile<ProjectFrontmatter>(dir, filename);
+  return { ...frontmatter, slug, content };
+}
+
+// Experience
+export function getAllExperiences(): Experience[] {
+  const dir = path.join(contentDir, "experience");
+  const files = getFiles(dir);
+
+  return files
+    .map((file) => {
+      const { frontmatter, slug, content } = parseFile<ExperienceFrontmatter>(dir, file);
+      return { ...frontmatter, slug, content };
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export function getExperienceBySlug(slug: string): Experience | undefined {
+  const dir = path.join(contentDir, "experience");
+  const filename = `${slug}.md`;
+  const filePath = path.join(dir, filename);
+
+  if (!fs.existsSync(filePath)) return undefined;
+
+  const { frontmatter, content } = parseFile<ExperienceFrontmatter>(dir, filename);
   return { ...frontmatter, slug, content };
 }
