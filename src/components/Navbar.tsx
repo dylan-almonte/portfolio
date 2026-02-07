@@ -1,44 +1,30 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const links = [
-  { href: "/", label: "~" },
-  { href: "/blog", label: "blog" },
-  { href: "/projects", label: "projects" },
-];
+import { FuzzyFinder } from "@/components/FuzzyFinder";
 
 export function Navbar() {
   const pathname = usePathname();
 
-  return (
-    <nav className="border-b border-terminal-gray px-4 py-3">
-      <div className="max-w-4xl mx-auto flex items-center gap-6 text-sm">
-        <span className="text-terminal-green-dim select-none">
-          visitor@dylan.dev:
-        </span>
-        {links.map((link) => {
-          const isActive =
-            link.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(link.href);
+  // Show current path as a breadcrumb
+  const currentLabel =
+    pathname === "/"
+      ? "~"
+      : pathname.slice(1).split("/")[0];
 
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`transition-colors ${
-                isActive
-                  ? "text-terminal-green-bright"
-                  : "text-terminal-green-dim hover:text-terminal-green"
-              }`}
-            >
-              <span className="text-terminal-green-dim">./</span>
-              {link.label}
-            </Link>
-          );
-        })}
+  return (
+    <nav className="border-b border-border backdrop-blur-sm bg-bg-primary/80 sticky top-0 z-20 px-4 py-3">
+      <div className="max-w-4xl mx-auto flex items-center justify-between text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-text-muted select-none">
+            visitor@dylan.dev:
+          </span>
+          <span className="text-accent-cyan">
+            <span className="text-text-muted">./</span>
+            {currentLabel}
+          </span>
+        </div>
+        <FuzzyFinder />
       </div>
     </nav>
   );

@@ -28,27 +28,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const htmlContent = await renderMarkdown(project.content);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in-up">
       <Link
         href="/projects"
-        className="text-sm text-terminal-green-dim hover:text-terminal-green transition-colors"
+        className="text-sm text-text-muted hover:text-accent-cyan transition-colors"
       >
-        <span className="text-terminal-green-dim">$</span> cd ../projects/
+        <span className="text-text-muted">$</span> cd ../projects/
       </Link>
 
       <TerminalWindow title={`${slug}.md`}>
-        <header className="mb-6 pb-4 border-b border-terminal-gray">
-          <h1 className="text-2xl text-terminal-green-bright mb-2">
+        <header className="mb-6 pb-4 border-b border-border">
+          <h1 className="text-2xl text-accent-cyan mb-2">
             {project.title}
           </h1>
-          <div className="flex items-center gap-4 text-xs text-terminal-green-dim">
+          <div className="flex items-center gap-4 text-xs text-text-muted">
             <time>{project.date}</time>
             {project.tags && (
               <div className="flex gap-2">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="border border-terminal-gray px-2 py-0.5 text-terminal-amber"
+                    className="border border-border px-2 py-0.5 text-accent-purple rounded"
                   >
                     {tag}
                   </span>
@@ -62,7 +62,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 href={project.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-terminal-amber hover:underline"
+                className="text-accent-blue hover:text-accent-cyan transition-colors"
               >
                 [source code]
               </a>
@@ -72,7 +72,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 href={project.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-terminal-amber hover:underline"
+                className="text-terminal-green hover:text-accent-cyan transition-colors"
               >
                 [live demo]
               </a>

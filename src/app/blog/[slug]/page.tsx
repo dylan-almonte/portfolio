@@ -28,27 +28,27 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const htmlContent = await renderMarkdown(post.content);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in-up">
       <Link
         href="/blog"
-        className="text-sm text-terminal-green-dim hover:text-terminal-green transition-colors"
+        className="text-sm text-text-muted hover:text-accent-cyan transition-colors"
       >
-        <span className="text-terminal-green-dim">$</span> cd ../blog/
+        <span className="text-text-muted">$</span> cd ../blog/
       </Link>
 
       <TerminalWindow title={`${slug}.md`}>
-        <header className="mb-6 pb-4 border-b border-terminal-gray">
-          <h1 className="text-2xl text-terminal-green-bright mb-2">
+        <header className="mb-6 pb-4 border-b border-border">
+          <h1 className="text-2xl text-accent-cyan mb-2">
             {post.title}
           </h1>
-          <div className="flex items-center gap-4 text-xs text-terminal-green-dim">
+          <div className="flex items-center gap-4 text-xs text-text-muted">
             <time>{post.date}</time>
             {post.tags && (
               <div className="flex gap-2">
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="border border-terminal-gray px-2 py-0.5 text-terminal-amber"
+                    className="border border-border px-2 py-0.5 text-accent-purple rounded"
                   >
                     {tag}
                   </span>

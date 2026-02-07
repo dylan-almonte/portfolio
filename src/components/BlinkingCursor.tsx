@@ -1,3 +1,3 @@
 export function BlinkingCursor() {
-  return <span className="animate-blink text-terminal-green-bright">█</span>;
+  return <span className="animate-blink text-accent-cyan">█</span>;
 }
